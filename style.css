@@ -1,0 +1,87 @@
+body {
+  font-family: Arial, sans-serif;
+  background: #0f1c2e;
+  color: white;
+  text-align: center;
+  padding: 20px;
+}
+
+.container {
+  max-width: 400px;
+  margin: auto;
+  padding: 10px;
+  border-radius: 12px;
+  background: #182c47;
+  box-shadow: 0 0 15px #0f1c2e;
+}
+
+.logo {
+  width: 60px;
+  margin-bottom: 10px;
+}
+
+h1 {
+  font-weight: bold;
+  margin: 10px 0;
+  font-size: 1.2rem;
+}
+
+.timeframes button {
+  margin: 5px;
+  padding: 8px 15px;
+  background: #1e90ff;
+  border: none;
+  border-radius: 6px;
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+#getSignal {
+  margin-top: 20px;
+  padding: 15px 30px;
+  font-size: 16px;
+  font-weight: bold;
+  background: linear-gradient(to right, #00c853, #64dd17);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.loading {
+  margin-top: 15px;
+  padding: 10px;
+  background: #222;
+  border-radius: 8px;
+  animation: pulse 1.2s infinite;
+}
+
+.hidden {
+  display: none;
+}
+
+.signalResult {
+  margin-top: 20px;
+  font-size: 2em;
+}
+
+.signalResult.buy {
+  color: #00e676;
+}
+
+.signalResult.sell {
+  color: #ff1744;
+}
+
+@keyframes pulse {
+  0% { opacity: 0.6; }
+  50% { opacity: 1; }
+  100% { opacity: 0.6; }
+}
+
+.clock {
+  margin-top: 25px;
+  font-size: 18px;
+  font-weight: bold;
+}
