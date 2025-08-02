@@ -42,12 +42,12 @@ h1 {
 }
 
 .logo {
-  width: 120px; /* adjust size as needed */
+  width: 120px;
   height: 120px;
-  border-radius: 50%; /* makes it round */
-  border: 4px solid #00f0ff; /* color and thickness of border */
-  box-shadow: 0 0 10px rgba(0, 240, 255, 0.6); /* optional glowing effect */
-  object-fit: cover; /* ensures image fills the round container */
+  border-radius: 50%;
+  border: 4px solid #00f0ff;
+  box-shadow: 0 0 10px rgba(0, 240, 255, 0.6);
+  object-fit: cover;
   animation: spin 6s infinite linear;
 }
 
@@ -103,10 +103,25 @@ button:hover {
   display: none;
 }
 
+/* Dynamic signal direction text */
 #directionText {
   font-size: 2.2em;
   font-weight: bold;
   background: linear-gradient(90deg, lime, yellow);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* New class for UP signal */
+.signal-CALL {
+  background: linear-gradient(90deg, lime, yellow);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* New class for DOWN signal */
+.signal-SELL {
+  background: linear-gradient(90deg, red, orange);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
