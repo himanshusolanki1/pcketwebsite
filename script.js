@@ -1,88 +1,59 @@
 let pressTimer = null;
-
-const continueBtn = document.getElementById('continueBtn');
 const signalBtn = document.getElementById('signalBtn');
-const pairInput = document.getElementById('pairInput');
-const dashboard = document.getElementById('dashboard');
-const loading = document.getElementById('loading');
-const result = document.getElementById('result');
-const marketDisplay = document.getElementById('marketDisplay');
-const finalMarket = document.getElementById('finalMarket');
-const directionText = document.getElementById('directionText');
 
-// CONTINUE button click handler
-continueBtn.addEventListener('click', () => {
-  const market = pairInput.value.trim();
+// CONTINUE button
+document.getElementById('continueBtn').addEventListener('click', () => {
+  const market = document.getElementById('pairInput').value.trim(); // Fixed here
   if (!market) return alert("Please enter a market and pair name.");
 
-  marketDisplay.textContent = market;
-
-  dashboard.classList.remove('hidden');
-  continueBtn.classList.add('hidden');
-  pairInput.classList.add('hidden');
-
-  // Now that the signal button is visible, set up the events
-  setupPressEvents();
+  document.getElementById('marketDisplay').textContent = market;
+  document.getElementById('dashboard').classList.remove('hidden');
+  document.getElementById('continueBtn').classList.add('hidden');
+  document.getElementById('pairInput').classList.add('hidden');
 });
 
-// Setup press/tap events for signal button
+// 🔽 Hold = DOWN (touch or mouse), 🔼 Tap = UP
 function setupPressEvents() {
-  // Prevent duplicate listeners
-  signalBtn.removeEventListener("mousedown", handleMouseDown);
-  signalBtn.removeEventListener("mouseup", handleMouseUp);
-  signalBtn.removeEventListener("touchstart", handleTouchStart);
-  signalBtn.removeEventListener("touchend", handleTouchEnd);
+  const startPress = () => {
+    pressTimer = setTimeout(() => {
+      generateSignal("SELL");
+      pressTimer = null;
+    }, 500); // 0.5s = hold
+  };
 
-  signalBtn.addEventListener("mousedown", handleMouseDown);
-  signalBtn.addEventListener("mouseup", handleMouseUp);
-  signalBtn.addEventListener("touchstart", handleTouchStart);
-  signalBtn.addEventListener("touchend", handleTouchEnd);
+  const endPress = () => {
+    if (pressTimer) {
+      clearTimeout(pressTimer);
+      generateSignal("CALL"); // It was just a tap
+    }
+  };
+
+  // Mouse (desktop)
+  signalBtn.addEventListener("mousedown", startPress);
+  signalBtn.addEventListener("mouseup", endPress);
+
+  // Touch (mobile)
+  signalBtn.addEventListener("touchstart", startPress);
+  signalBtn.addEventListener("touchend", endPress);
 }
 
-function handleMouseDown() {
-  pressTimer = setTimeout(() => {
-    generateSignal("SELL");
-    pressTimer = null;
-  }, 500);
-}
-
-function handleMouseUp() {
-  if (pressTimer) {
-    clearTimeout(pressTimer);
-    generateSignal("CALL");
-  }
-}
-
-function handleTouchStart() {
-  pressTimer = setTimeout(() => {
-    generateSignal("SELL");
-    pressTimer = null;
-  }, 500);
-}
-
-function handleTouchEnd() {
-  if (pressTimer) {
-    clearTimeout(pressTimer);
-    generateSignal("CALL");
-  }
-}
-
-// Simulate signal generation
 function generateSignal(direction) {
-  dashboard.classList.add('hidden');
-  loading.classList.remove('hidden');
+  document.getElementById('dashboard').classList.add('hidden');
+  document.getElementById('loading').classList.remove('hidden');
 
   setTimeout(() => {
-    loading.classList.add('hidden');
-    result.classList.remove('hidden');
-    directionText.textContent = direction;
-    directionText.style.color = direction === "CALL" ? "green" : "red";
-    finalMarket.textContent = marketDisplay.textContent;
+    document.getElementById('loading').classList.add('hidden');
+    document.getElementById('result').classList.remove('hidden');
+    document.getElementById('directionText').textContent = direction;
+    document.getElementById('directionText').style.color = direction === "CALL" ? "red" : "red";
+    document.getElementById('finalMarket').textContent = document.getElementById('marketDisplay').textContent;
   }, 2500);
 }
 
-// Reset to allow new signal
 function reset() {
-  result.classList.add('hidden');
-  dashboard.classList.remove('hidden');
+  document.getElementById('result').classList.add('hidden');
+  document.getElementById('dashboard').classList.remove('hidden');
 }
+
+// Call the setup
+setupPressEvents(); check this
