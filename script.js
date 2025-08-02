@@ -16,7 +16,7 @@ document.getElementById('continueBtn').addEventListener('click', () => {
 function setupPressEvents() {
   const startPress = () => {
     pressTimer = setTimeout(() => {
-      generateSignal("SELL");
+      generateSignal("DOWN");
       pressTimer = null;
     }, 500); // 0.5s = hold
   };
@@ -24,7 +24,7 @@ function setupPressEvents() {
   const endPress = () => {
     if (pressTimer) {
       clearTimeout(pressTimer);
-      generateSignal("CALL"); // It was just a tap
+      generateSignal("UP"); // It was just a tap
     }
   };
 
@@ -45,7 +45,7 @@ function generateSignal(direction) {
     document.getElementById('loading').classList.add('hidden');
     document.getElementById('result').classList.remove('hidden');
     document.getElementById('directionText').textContent = direction;
-    document.getElementById('directionText').style.color = direction === "CALL" ? "red" : "red";
+    document.getElementById('directionText').style.color = direction === "UP" ? "lime" : "red";
     document.getElementById('finalMarket').textContent = document.getElementById('marketDisplay').textContent;
   }, 2500);
 }
@@ -56,4 +56,4 @@ function reset() {
 }
 
 // Call the setup
-setupPressEvents(); check this
+setupPressEvents();
