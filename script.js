@@ -45,7 +45,7 @@ function generateSignal(direction) {
     document.getElementById('loading').classList.add('hidden');
     document.getElementById('result').classList.remove('hidden');
     document.getElementById('directionText').textContent = direction;
-    document.getElementById('directionText').style.color = direction === "CALL" ? "lime" : "red";
+    document.getElementById('directionText').style.color = direction === "CALL" ? "red" : "red";
     document.getElementById('finalMarket').textContent = document.getElementById('marketDisplay').textContent;
   }, 2500);
 }
