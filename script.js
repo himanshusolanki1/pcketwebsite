@@ -1,16 +1,20 @@
 document.addEventListener("DOMContentLoaded", () => {
   let pressTimer = null;
-  const signalBtn = document.getElementById('signalBtn');
 
-  document.getElementById('continueBtn').addEventListener('click', () => {
-    const market = document.getElementById('pairInput').value.trim();
+  const continueBtn = document.getElementById("continueBtn");
+  const signalBtn = document.getElementById("signalBtn");
+
+  // CONTINUE BUTTON
+  continueBtn.addEventListener("click", () => {
+    const market = document.getElementById("pairInput").value.trim();
     if (!market) return alert("Please enter a market and pair name.");
 
-    document.getElementById('marketDisplay').textContent = market;
-    document.getElementById('initialPage').classList.add('hidden');
-    document.getElementById('dashboard').classList.remove('hidden');
+    document.getElementById("marketDisplay").textContent = market;
+    document.getElementById("initialPage").classList.add("hidden");
+    document.getElementById("dashboard").classList.remove("hidden");
   });
 
+  // GET SIGNAL BUTTON
   function setupPressEvents() {
     const startPress = () => {
       pressTimer = setTimeout(() => {
@@ -33,21 +37,23 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function generateSignal(direction) {
-    document.getElementById('dashboard').classList.add('hidden');
-    document.getElementById('loading').classList.remove('hidden');
+    document.getElementById("dashboard").classList.add("hidden");
+    document.getElementById("loading").classList.remove("hidden");
 
     setTimeout(() => {
-      document.getElementById('loading').classList.add('hidden');
-      document.getElementById('result').classList.remove('hidden');
-      document.getElementById('directionText').textContent = direction;
-      document.getElementById('directionText').style.color = direction === "UP" ? "lime" : "red";
-      document.getElementById('finalMarket').textContent = document.getElementById('marketDisplay').textContent;
+      document.getElementById("loading").classList.add("hidden");
+      document.getElementById("result").classList.remove("hidden");
+      document.getElementById("directionText").textContent = direction;
+      document.getElementById("directionText").style.color =
+        direction === "UP" ? "lime" : "red";
+      document.getElementById("finalMarket").textContent =
+        document.getElementById("marketDisplay").textContent;
     }, 2500);
   }
 
   function reset() {
-    document.getElementById('result').classList.add('hidden');
-    document.getElementById('dashboard').classList.remove('hidden');
+    document.getElementById("result").classList.add("hidden");
+    document.getElementById("dashboard").classList.remove("hidden");
   }
 
   setupPressEvents();
