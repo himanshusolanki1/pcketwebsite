@@ -3,72 +3,49 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>POCKET OPTION OFFICIAL</title>
+  <title>Pocket Option Signal</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div class="container">
-    <!-- Background blur logo -->
-    <div class="background-logo-blur"></div>
+    <h1 class="title">Pocket Option Signal </h1>
 
-    <!-- 3D Logo -->
-    <img src="logo.png" class="logo-3d" alt="Binary God Logo" />
-
-    <!-- Title -->
-    <h1 class="gradient-text">SIGNAL SOFTWARE</h1>
-    <p class="subtitle gradient-text">POWERED BY POCKET OPTION ™</p>
-
-    <!-- Robot Image -->
-    <img src="robot.png" class="robot" alt="AI Assistant" onerror="this.style.display='none'" />
-
-    <!-- First Page - Market Selection -->
-    <div id="initialPage">
-      <input type="text" id="pairInput" placeholder="Enter Pair (e.g., EUR/USD)" />
-
-      <select id="marketInput">
-        <option value="">Select OTC Market</option>
-        <option value="EUR/USD OTC">EUR/USD OTC</option>
-        <option value="GBP/USD OTC">GBP/USD OTC</option>
-        <option value="AUD/USD OTC">AUD/USD OTC</option>
-        <option value="USD/JPY OTC">USD/JPY OTC</option>
-        <option value="USD/CAD OTC">USD/CAD OTC</option>
-        <option value="NZD/USD OTC">NZD/USD OTC</option>
-        <option value="BTC/USD OTC">BTC/USD OTC</option>
-        <option value="ETH/USD OTC">ETH/USD OTC</option>
-        <option value="LTC/USD OTC">LTC/USD OTC</option>
-        <option value="XRP/USD OTC">XRP/USD OTC</option>
-      </select>
-
+    <!-- Step 1: Enter Market Pair -->
+    <div id="pairInputSection">
+      <label for="marketInput">Enter or select market pair:</label>
+      <input list="marketList" id="marketInput" placeholder="e.g., EUR/USD OTC" />
+      <datalist id="marketList">
+        <option value="EUR/USD OTC">
+        <option value="GBP/USD OTC">
+        <option value="AUD/USD OTC">
+        <option value="USD/JPY OTC">
+        <option value="USD/CAD OTC">
+        <option value="BTC/USD OTC">
+        <option value="ETH/USD OTC">
+        <option value="XRP/USD OTC">
+      </datalist>
       <button id="continueBtn">Continue</button>
     </div>
 
-    <!-- Signal Dashboard -->
+    <!-- Step 2: Signal Dashboard -->
     <div id="dashboard" class="hidden">
-      <p class="market-display" id="marketDisplay"></p>
-
-      <select id="timerInput">
-        <option value="5">5 Seconds</option>
-        <option value="10">10 Seconds</option>
-        <option value="30">30 Seconds</option>
-        <option value="60">1 Minute</option>
-      </select>
-
-      <button id="signalBtn">GET SIGNAL</button>
+      <h2>Market: <span id="marketDisplay"></span></h2>
+      <p>Press and hold for DOWN 🔽 or tap for UP 🔼</p>
+      <button id="signalBtn">Get Signal</button>
     </div>
 
-    <!-- Loading Screen -->
+    <!-- Loading Section -->
     <div id="loading" class="hidden">
-      <p>🔗 Connecting to POCKET OPTION SERVER...</p>
-      <p>🔐 Authenticating...</p>
-      <p>📊 GETTING SIGNAL...</p>
+      <p>Generating signal...</p>
+      <img src="images/robot.png" alt="Loading..." width="100"/>
     </div>
 
-    <!-- Final Result -->
+    <!-- Result Section -->
     <div id="result" class="hidden">
-      <p>Signal for <span id="finalMarket"></span>:</p>
-      <h2 id="directionText" class="direction-text"></h2>
-      <p>Confidence: <strong>100%</strong></p>
-      <button onclick="reset()">NEW SIGNAL</button>
+      <h2>Signal Generated</h2>
+      <p>Market Pair: <strong id="finalMarket"></strong></p>
+      <p>Direction: <strong id="directionText"></strong></p>
+      <button onclick="reset()">New Signal</button>
     </div>
   </div>
 
