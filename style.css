@@ -1,127 +1,162 @@
-body {
+* {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: 'Segoe UI', sans-serif;
-  background: url("logo.png") center center no-repeat fixed;
-  background-size: cover;
-  backdrop-filter: blur(20px);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  background: #000;
   color: white;
-  min-height: 100vh;
   text-align: center;
+  padding: 20px;
   overflow-x: hidden;
 }
 
 .container {
-  width: 100%;
-  max-width: 480px;
-  margin: 0 auto;
-  padding: 30px 20px 60px 20px;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  z-index: 10;
+  max-width: 600px;
+  margin: auto;
+  padding: 20px;
+  position: relative;
+  z-index: 1;
 }
 
-h1 {
-  font-size: 2.5em;
-  font-weight: bold;
-  background: linear-gradient(90deg, gold, orange);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  margin: 0 0 10px 0;
+.background-logo-blur {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 400px;
+  height: 400px;
+  background: url("logo.png") no-repeat center;
+  background-size: contain;
+  transform: translate(-50%, -50%);
+  filter: blur(80px) brightness(0.8);
+  opacity: 0.2;
+  animation: pulse 4s infinite;
+  z-index: 0;
 }
 
-.subtitle {
-  font-size: 1em;
-  font-weight: bold;
-  background: linear-gradient(90deg, #bbb, white);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  margin-bottom: 20px;
+@keyframes pulse {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.2; }
+  50% { transform: translate(-50%, -50%) scale(1.1); opacity: 0.3; }
 }
 
-.logo {
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
-  border: 4px solid #00f0ff;
-  box-shadow: 0 0 10px rgba(0, 240, 255, 0.6);
-  object-fit: cover;
-  animation: spin 6s infinite linear;
+.logo-3d {
+  width: 150px;
+  filter: drop-shadow(0 0 10px cyan);
+  margin-bottom: 10px;
+  animation: glowLogo 3s ease-in-out infinite alternate;
 }
 
-@keyframes spin {
-  0% { transform: rotateY(0); }
-  100% { transform: rotateY(360deg); }
+@keyframes glowLogo {
+  from { filter: drop-shadow(0 0 8px cyan); }
+  to { filter: drop-shadow(0 0 20px cyan); }
 }
 
 .robot {
-  width: 180px;
-  max-width: 80%;
-  object-fit: contain;
-  margin: 20px auto 30px auto;
+  width: 100px;
+  margin: 20px auto;
+  display: block;
+  filter: drop-shadow(0 0 6px lime);
   animation: float 3s ease-in-out infinite;
-  filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.3));
 }
 
 @keyframes float {
-  0% { transform: translateY(0); }
-  50% { transform: translateY(-8px); }
-  100% { transform: translateY(0); }
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
 }
 
-input, select, button {
-  width: 100%;
-  padding: 16px;
-  margin: 10px 0;
-  border: none;
-  border-radius: 14px;
-  font-size: 1.1em;
-  font-weight: bold;
+.gradient-text {
+  background: linear-gradient(to right, #00f2ff, #00ff95);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.subtitle {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
 }
 
 input, select {
-  background-color: #1a1a1a;
-  color: white;
-  border: 1px solid #444;
+  width: 100%;
+  padding: 12px;
+  margin: 12px 0;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  outline: none;
 }
 
 button {
-  background-color: gold;
+  background-color: #00f2ff;
   color: black;
+  border: none;
+  border-radius: 10px;
+  padding: 12px 20px;
+  font-size: 1.1rem;
+  font-weight: bold;
   cursor: pointer;
-  transition: background 0.2s ease;
-  box-shadow: 0 0 10px gold;
+  margin-top: 10px;
+  box-shadow: 0 0 15px #00f2ff;
+  transition: background-color 0.3s, box-shadow 0.3s;
 }
 
 button:hover {
-  background-color: #ffdb4d;
+  background-color: #00d1e6;
+  box-shadow: 0 0 25px #00f2ff;
+}
+
+.market-display {
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-bottom: 20px;
 }
 
 .hidden {
   display: none;
 }
 
-/* Dynamic signal direction text */
-#directionText {
-  font-size: 2.2em;
+#loading p {
+  font-size: 1.1rem;
+  margin-bottom: 10px;
+}
+
+#result h2.direction-text {
+  font-size: 2.2rem;
   font-weight: bold;
-  background: linear-gradient(90deg, lime, yellow);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: red;
+  text-shadow: 0 0 10px red;
+  animation: flash 1.2s ease-in-out infinite;
 }
 
-/* New class for UP signal */
-.signal-CALL {
-  background: linear-gradient(90deg, lime, yellow);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+@keyframes flash {
+  0%, 100% { opacity: 1; text-shadow: 0 0 10px red; }
+  50% { opacity: 0.6; text-shadow: 0 0 20px red; }
 }
 
-/* New class for DOWN signal */
-.signal-SELL {
-  background: linear-gradient(90deg, red, orange);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+/* Mobile responsive */
+@media (max-width: 500px) {
+  .logo-3d {
+    width: 120px;
+  }
+
+  .robot {
+    width: 80px;
+  }
+
+  h1 {
+    font-size: 1.5rem;
+  }
+
+  button {
+    font-size: 1rem;
+  }
+
+  input, select {
+    font-size: 1rem;
+  }
+
+  #result h2.direction-text {
+    font-size: 1.8rem;
+  }
 }
