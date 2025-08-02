@@ -13,6 +13,7 @@ body {
   overflow-x: hidden;
 }
 
+
 .container {
   max-width: 600px;
   margin: auto;
@@ -130,6 +131,11 @@ button:hover {
   color: red;
   text-shadow: 0 0 10px red;
   animation: flash 1.2s ease-in-out infinite;
+}
+
+input[list] {
+  position: relative;
+  z-index: 5;
 }
 
 @keyframes flash {
