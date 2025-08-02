@@ -138,6 +138,17 @@ input[list] {
 .hidden {
   display: none;
 }
+#dashboard {
+  pointer-events: auto;
+  z-index: 5;
+}
+
+#dashboard select {
+  z-index: 10;
+  position: relative;
+  pointer-events: auto;
+}
+
 
 
 @keyframes flash {
