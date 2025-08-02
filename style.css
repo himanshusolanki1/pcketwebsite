@@ -1,87 +1,134 @@
 body {
-  font-family: Arial, sans-serif;
-  background: #0f1c2e;
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+  background: linear-gradient(145deg, #090d15, #0f1625);
   color: white;
-  text-align: center;
-  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
 
-.container {
+.app-container {
   max-width: 400px;
-  margin: auto;
-  padding: 10px;
-  border-radius: 12px;
-  background: #182c47;
-  box-shadow: 0 0 15px #0f1c2e;
+  padding: 20px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.05);
+  box-shadow: 0 0 30px rgba(0, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
 }
 
 .logo {
   width: 60px;
+  display: block;
+  margin: 0 auto 10px;
+}
+
+header h1 {
+  text-align: center;
+  font-size: 1.3rem;
+  font-weight: bold;
+}
+
+header span {
+  font-size: 0.8rem;
+  color: #00ffd1;
+}
+
+.settings-window {
+  margin-top: 20px;
+}
+
+.pair-selector {
+  position: relative;
+}
+
+.pair-selector input {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
   margin-bottom: 10px;
 }
 
-h1 {
-  font-weight: bold;
-  margin: 10px 0;
-  font-size: 1.2rem;
-}
-
-.timeframes button {
-  margin: 5px;
-  padding: 8px 15px;
-  background: #1e90ff;
-  border: none;
-  border-radius: 6px;
-  color: white;
-  cursor: pointer;
-  font-weight: bold;
-}
-
-#getSignal {
-  margin-top: 20px;
-  padding: 15px 30px;
-  font-size: 16px;
-  font-weight: bold;
-  background: linear-gradient(to right, #00c853, #64dd17);
-  color: white;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-}
-
-.loading {
-  margin-top: 15px;
-  padding: 10px;
-  background: #222;
+.pair-list {
+  background: #121e2f;
   border-radius: 8px;
-  animation: pulse 1.2s infinite;
-}
-
-.hidden {
   display: none;
+  max-height: 150px;
+  overflow-y: auto;
+  position: absolute;
+  width: 100%;
+  z-index: 5;
 }
 
-.signalResult {
-  margin-top: 20px;
-  font-size: 2em;
+.pair-option {
+  padding: 10px;
+  cursor: pointer;
 }
 
-.signalResult.buy {
-  color: #00e676;
+.pair-option:hover {
+  background: #1e2f45;
 }
 
-.signalResult.sell {
-  color: #ff1744;
+.timeframes {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 10px;
 }
 
-@keyframes pulse {
-  0% { opacity: 0.6; }
-  50% { opacity: 1; }
-  100% { opacity: 0.6; }
-}
-
-.clock {
-  margin-top: 25px;
-  font-size: 18px;
+.time-btn {
+  padding: 8px 15px;
+  border: none;
+  border-radius: 8px;
+  background: #00ffd1;
+  color: #000;
   font-weight: bold;
+  cursor: pointer;
+}
+
+.time-btn.active {
+  background: #1effa4;
+  box-shadow: 0 0 10px #1effa4;
+}
+
+.signal-section {
+  margin-top: 30px;
+  text-align: center;
+}
+
+#getSignalBtn {
+  padding: 12px 20px;
+  background: #00ffd1;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+#getSignalBtn:active {
+  background: #00bfa5;
+}
+
+.loading-message {
+  margin-top: 15px;
+  font-size: 0.9rem;
+  color: #999;
+  min-height: 24px;
+}
+
+.signal-result {
+  margin-top: 10px;
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: #fff;
+}
+
+footer {
+  text-align: center;
+  margin-top: 30px;
+  font-size: 0.85rem;
+  color: #ccc;
 }
