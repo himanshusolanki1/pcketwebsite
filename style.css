@@ -46,6 +46,9 @@ body {
   filter: drop-shadow(0 0 10px cyan);
   margin-bottom: 10px;
   animation: glowLogo 3s ease-in-out infinite alternate;
+  border-radius: 50%; /* Makes the image round */
+  border: 3px solid cyan; /* Optional: adds a glowing border */
+  object-fit: cover; /* Ensures the image fills the circle */
 }
 
 @keyframes glowLogo {
