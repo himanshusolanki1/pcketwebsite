@@ -3,13 +3,14 @@ const signalBtn = document.getElementById('signalBtn');
 
 // CONTINUE button
 document.getElementById('continueBtn').addEventListener('click', () => {
-  const market = document.getElementById('pairInput').value.trim(); // Fixed here
+  const market = document.getElementById('pairInput').value.trim();
   if (!market) return alert("Please enter a market and pair name.");
 
   document.getElementById('marketDisplay').textContent = market;
+  document.getElementById('initialPage').classList.add('hidden');
   document.getElementById('dashboard').classList.remove('hidden');
-  document.getElementById('continueBtn').classList.add('hidden');
-  document.getElementById('pairInput').classList.add('hidden');
+});
+
 });
 
 // 🔽 Hold = DOWN (touch or mouse), 🔼 Tap = UP
