@@ -51,8 +51,9 @@ function generateSignal(direction) {
 }
 
 function reset() {
-  document.getElementById('result').classList.add('hidden');
-  document.getElementById('dashboard').classList.remove('hidden');
+    document.getElementById('initialPage').classList.add('hidden');
+    document.getElementById('dashboard').classList.remove('hidden');
+
 }
 
 // Call the setup
