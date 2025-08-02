@@ -5,6 +5,72 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>POCKET OPTION OFFICIAL</title>
   <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: url('logo.png') no-repeat center center fixed;
+      background-size: cover;
+      backdrop-filter: blur(10px);
+    }
+
+    .container {
+      text-align: center;
+      padding: 30px;
+    }
+
+    h1, p, label, select, button {
+      font-weight: bold;
+      background: linear-gradient(to right, #00f2ff, #a200ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .logo {
+      width: 120px;
+      height: 120px;
+      margin-bottom: 10px;
+      filter: drop-shadow(0px 0px 20px #00f2ff);
+      transform: rotateY(20deg) scale(1.1);
+    }
+
+    .robot {
+      width: 100px;
+      margin-top: 20px;
+    }
+
+    select, input {
+      margin: 10px auto;
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 10px;
+      border: 2px solid #00f2ff;
+    }
+
+    #marketInput, #timerInput {
+      width: 220px;
+    }
+
+    button {
+      padding: 14px 28px;
+      margin: 10px;
+      font-size: 18px;
+      border-radius: 12px;
+      border: none;
+      background: linear-gradient(45deg, #00f2ff, #a200ff);
+      color: white;
+      cursor: pointer;
+      box-shadow: 0 0 10px #00f2ff;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    #result h2 {
+      font-size: 32px;
+    }
+  </style>
 </head>
 <body>
   <div class="container">
@@ -18,9 +84,11 @@
     <!-- Robot Image -->
     <img src="robot.png" class="robot" alt="AI Assistant" />
 
-    <!-- Market Selection -->
+    <!-- Market Input -->
+    <input type="text" id="pairInput" placeholder="Enter market pair (e.g. EUR/USD OTC)" />
+    <br/>
     <select id="marketInput">
-      <option value="">Select OTC Market</option>
+      <option value="">Or select OTC Market</option>
       <option value="EUR/USD OTC">EUR/USD OTC</option>
       <option value="GBP/USD OTC">GBP/USD OTC</option>
       <option value="AUD/USD OTC">AUD/USD OTC</option>
@@ -31,17 +99,19 @@
       <option value="ETH/USD OTC">ETH/USD OTC</option>
       <option value="LTC/USD OTC">LTC/USD OTC</option>
       <option value="XRP/USD OTC">XRP/USD OTC</option>
-      <!-- Add more markets if needed -->
+      <!-- Add more if needed -->
     </select>
 
     <!-- Continue Button -->
+    <br/>
     <button id="continueBtn">Continue</button>
 
-    <!-- Signal Dashboard -->
+    <!-- Dashboard -->
     <div id="dashboard" class="hidden">
       <p class="market-display" id="marketDisplay"></p>
 
       <!-- Timer Selection -->
+      <label for="timerInput">Select Timer:</label><br/>
       <select id="timerInput">
         <option value="5">5 Seconds</option>
         <option value="10">10 Seconds</option>
@@ -49,14 +119,14 @@
         <option value="60">1 Minute</option>
       </select>
 
-      <!-- Signal Button -->
+      <br/><br/>
       <button id="signalBtn">GET SIGNAL</button>
     </div>
 
     <!-- Loading Screen -->
     <div id="loading" class="hidden">
-      <p>🔗 Connecting to POCKET OPTION SERVER...</p>
-      <p>🔐 Authenticating...</p>
+      <p>🔗 CONNECTING TO POCKET OPTION SERVER...</p>
+      <p>🔐 AUTHENTICATING...</p>
       <p>📊 GETTING SIGNAL...</p>
     </div>
 
@@ -64,7 +134,7 @@
     <div id="result" class="hidden">
       <p>Signal for <span id="finalMarket"></span>:</p>
       <h2 id="directionText"></h2>
-      <p>Confidence: <strong>100%</strong></p>
+      <p>CONFIDENECE: <strong>100%</strong></p>
       <button onclick="reset()">NEW SIGNAL</button>
     </div>
   </div>
