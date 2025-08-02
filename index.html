@@ -1,34 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Pocket Option Signal</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Pocket Option Signals</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="container">
-    <img src="pocket-logo.png" alt="Pocket Option" class="logo">
-    <h1>OFFICIAL SIGNALS <br> POWERED BY POCKET OPTION</h1>
+  <div class="app-container">
+    <!-- Header -->
+    <header>
+      <img src="pocket-logo.png" alt="Pocket Option Logo" class="logo"/>
+      <h1>OFFICIAL SIGNALS<br><span>Powered by Pocket Option</span></h1>
+    </header>
 
-    <div class="timeframes">
-      <button>S5</button>
-      <button>S15</button>
-      <button>M1</button>
-      <button>M3</button>
-      <button>M5</button>
+    <!-- Signal Settings -->
+    <div class="settings-window">
+      <div class="pair-selector">
+        <input type="text" id="pairInput" placeholder="Search or Select Trade Pair" />
+        <div class="pair-list" id="pairList">
+          <div class="pair-option">EUR/USD</div>
+          <div class="pair-option">BTC/USD</div>
+          <div class="pair-option">AUD/CAD OTC</div>
+        </div>
+      </div>
+
+      <div class="timeframes">
+        <button class="time-btn active">M1</button>
+        <button class="time-btn">S5</button>
+        <button class="time-btn">S15</button>
+      </div>
     </div>
 
-    <button id="getSignal">GET SIGNAL</button>
-
-    <div id="loadingBar" class="loading hidden">Getting signal from Pocket Option...</div>
-
-    <div id="result" class="signalResult hidden">
-      <!-- Signal icon will appear here -->
+    <!-- Signal Section -->
+    <div class="signal-section">
+      <button id="getSignalBtn">Get Signal</button>
+      <div class="loading-message" id="loadingText">Waiting for signal...</div>
+      <div class="signal-result" id="signalResult"></div>
     </div>
 
-    <div id="clock" class="clock"></div>
+    <!-- Clock -->
+    <footer>
+      <div id="clock"></div>
+    </footer>
+    
   </div>
-
   <script src="script.js"></script>
 </body>
 </html>
