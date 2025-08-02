@@ -1,50 +1,146 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Pocket Option Signals</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pocket Option Signal Tool</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #0d1117;
+      color: #ffffff;
+      margin: 0;
+      padding: 20px;
+    }
+    .container {
+      max-width: 500px;
+      margin: auto;
+      background: #161b22;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px #222;
+    }
+    h2 {
+      text-align: center;
+      color: #58a6ff;
+    }
+    select, button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      font-size: 16px;
+      border: none;
+      border-radius: 5px;
+    }
+    select {
+      background-color: #21262d;
+      color: #c9d1d9;
+    }
+    button {
+      background-color: #238636;
+      color: white;
+      cursor: pointer;
+    }
+    .loading {
+      text-align: center;
+      margin-top: 15px;
+    }
+    .signal-box {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 24px;
+      font-weight: bold;
+    }
+  </style>
 </head>
 <body>
-  <div class="app-container">
-    <!-- Header -->
-    <header>
-      <img src="pocket-logo.png" alt="Pocket Option Logo" class="logo"/>
-      <h1>OFFICIAL SIGNALS<br><span>Powered by Pocket Option</span></h1>
-    </header>
+  <div class="container">
+    <h2>Pocket Option Signal Tool</h2>
 
-    <!-- Signal Settings -->
-    <div class="settings-window">
-      <div class="pair-selector">
-        <input type="text" id="pairInput" placeholder="Search or Select Trade Pair" />
-        <div class="pair-list" id="pairList">
-          <div class="pair-option">EUR/USD</div>
-          <div class="pair-option">BTC/USD</div>
-          <div class="pair-option">AUD/CAD OTC</div>
-        </div>
-      </div>
+    <label for="pair">Select Trading Pair</label>
+    <select id="pair">
+      <option>EUR/USD OTC</option>
+      <option>GBP/USD OTC</option>
+      <option>USD/JPY OTC</option>
+      <option>AUD/USD OTC</option>
+      <option>USD/CHF OTC</option>
+      <option>NZD/USD OTC</option>
+      <option>EUR/GBP OTC</option>
+      <option>EUR/JPY OTC</option>
+      <option>GBP/JPY OTC</option>
+      <option>USD/CAD OTC</option>
+      <option>AUD/JPY OTC</option>
+      <option>NZD/JPY OTC</option>
+      <option>CAD/CHF OTC</option>
+      <option>EUR/AUD OTC</option>
+      <option>GBP/CAD OTC</option>
+      <option>EUR/NZD OTC</option>
+      <option>USD/SGD OTC</option>
+      <option>GBP/NZD OTC</option>
+      <option>EUR/CAD OTC</option>
+      <option>CHF/JPY OTC</option>
+      <option>USD/NOK OTC</option>
+      <option>USD/SEK OTC</option>
+      <option>EUR/NOK OTC</option>
+      <option>EUR/SEK OTC</option>
+      <option>GBP/CHF OTC</option>
+      <option>AUD/NZD OTC</option>
+      <option>AUD/CAD OTC</option>
+      <option>NZD/CAD OTC</option>
+      <option>CAD/JPY OTC</option>
+      <option>SGD/JPY OTC</option>
+      <option>EUR/SGD OTC</option>
+      <option>GBP/SGD OTC</option>
+      <option>AUD/SGD OTC</option>
+      <option>NZD/SGD OTC</option>
+      <option>CHF/SGD OTC</option>
+      <option>SEK/JPY OTC</option>
+      <option>NOK/JPY OTC</option>
+      <option>DKK/JPY OTC</option>
+      <option>USD/DKK OTC</option>
+      <option>USD/TRY OTC</option>
+      <option>EUR/TRY OTC</option>
+      <option>GBP/TRY OTC</option>
+      <option>USD/PLN OTC</option>
+      <option>EUR/PLN OTC</option>
+      <option>USD/HUF OTC</option>
+      <option>USD/CZK OTC</option>
+      <option>USD/ZAR OTC</option>
+      <option>USD/INR OTC</option>
+      <option>USD/MXN OTC</option>
+      <option>USD/BRL OTC</option>
+    </select>
 
-      <div class="timeframes">
-        <button class="time-btn active">M1</button>
-        <button class="time-btn">S5</button>
-        <button class="time-btn">S15</button>
-      </div>
+    <label for="timer">Select Timer (Seconds)</label>
+    <select id="timer">
+      <option value="30">30s</option>
+      <option value="60">60s</option>
+      <option value="120">120s</option>
+    </select>
+
+    <button onclick="getSignal()">Get Signal (Hold 3s)</button>
+
+    <div class="loading" id="loading" style="display: none;">
+      <p>Connecting to Pocket Option API...<br>Fetching best signal...</p>
     </div>
 
-    <!-- Signal Section -->
-    <div class="signal-section">
-      <button id="getSignalBtn">Get Signal</button>
-      <div class="loading-message" id="loadingText">Waiting for signal...</div>
-      <div class="signal-result" id="signalResult"></div>
-    </div>
-
-    <!-- Clock -->
-    <footer>
-      <div id="clock"></div>
-    </footer>
-    
+    <div class="signal-box" id="signalBox"></div>
   </div>
-  <script src="script.js"></script>
+
+  <script>
+    function getSignal() {
+      const loading = document.getElementById("loading");
+      const signalBox = document.getElementById("signalBox");
+      signalBox.textContent = "";
+      loading.style.display = "block";
+
+      setTimeout(() => {
+        loading.style.display = "none";
+        const result = Math.random() > 0.5 ? "BUY" : "SELL";
+        signalBox.textContent = `Signal: ${result}`;
+        signalBox.style.color = result === "BUY" ? "#00ff00" : "#ff5050";
+      }, 3000);
+    }
+  </script>
 </body>
 </html>
