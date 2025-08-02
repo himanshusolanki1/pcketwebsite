@@ -1,72 +1,59 @@
 let pressTimer = null;
 const signalBtn = document.getElementById('signalBtn');
 
-// CONTINUE button logic
+// CONTINUE button
 document.getElementById('continueBtn').addEventListener('click', () => {
   const market = document.getElementById('marketInput').value.trim();
-  if (!market) return alert("Please select a market.");
-
+  if (!market) return alert("Please enter a market and pair name.");
+  
   document.getElementById('marketDisplay').textContent = market;
   document.getElementById('dashboard').classList.remove('hidden');
   document.getElementById('continueBtn').classList.add('hidden');
   document.getElementById('marketInput').classList.add('hidden');
 });
 
-// Setup press and hold events
+// 🔽 Hold = DOWN (touch or mouse), 🔼 Tap = UP
 function setupPressEvents() {
   const startPress = () => {
     pressTimer = setTimeout(() => {
       generateSignal("DOWN");
       pressTimer = null;
-    }, 500); // Hold for 0.5s = DOWN
+    }, 500); // 0.5s = hold
   };
 
   const endPress = () => {
     if (pressTimer) {
       clearTimeout(pressTimer);
-      generateSignal("UP"); // Tap = UP
+      generateSignal("UP"); // It was just a tap
     }
   };
 
-  // Mouse events
+  // Mouse (desktop)
   signalBtn.addEventListener("mousedown", startPress);
   signalBtn.addEventListener("mouseup", endPress);
 
-  // Touch events
+  // Touch (mobile)
   signalBtn.addEventListener("touchstart", startPress);
   signalBtn.addEventListener("touchend", endPress);
 }
 
-// Generate and show the signal with timer
 function generateSignal(direction) {
-  const countdown = parseInt(document.getElementById('timerInput').value) || 5;
-  let timeLeft = countdown;
-
   document.getElementById('dashboard').classList.add('hidden');
   document.getElementById('loading').classList.remove('hidden');
-  document.getElementById('loading').innerHTML = `<p>📡 Starting in ${timeLeft} seconds...</p>`;
 
-  const interval = setInterval(() => {
-    timeLeft--;
-    if (timeLeft > 0) {
-      document.getElementById('loading').innerHTML = `<p>📡 Starting in ${timeLeft} seconds...</p>`;
-    } else {
-      clearInterval(interval);
-      document.getElementById('loading').classList.add('hidden');
-      document.getElementById('result').classList.remove('hidden');
-
-      document.getElementById('directionText').textContent = direction;
-      document.getElementById('directionText').style.color = direction === "UP" ? "lime" : "red";
-      document.getElementById('finalMarket').textContent = document.getElementById('marketDisplay').textContent;
-    }
-  }, 1000);
+  setTimeout(() => {
+    document.getElementById('loading').classList.add('hidden');
+    document.getElementById('result').classList.remove('hidden');
+    document.getElementById('directionText').textContent = direction;
+    document.getElementById('directionText').style.color = direction === "UP" ? "lime" : "red";
+    document.getElementById('finalMarket').textContent = document.getElementById('marketDisplay').textContent;
+  }, 2500);
 }
 
-// Reset for new signal
 function reset() {
   document.getElementById('result').classList.add('hidden');
   document.getElementById('dashboard').classList.remove('hidden');
 }
 
-// Initialize press event logic
+// Call the setup
 setupPressEvents();
