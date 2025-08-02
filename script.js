@@ -16,7 +16,7 @@ document.getElementById('continueBtn').addEventListener('click', () => {
 function setupPressEvents() {
   const startPress = () => {
     pressTimer = setTimeout(() => {
-      generateSignal("DOWN");
+      generateSignal("SELL");
       pressTimer = null;
     }, 500); // 0.5s = hold
   };
@@ -24,7 +24,7 @@ function setupPressEvents() {
   const endPress = () => {
     if (pressTimer) {
       clearTimeout(pressTimer);
-      generateSignal("UP"); // It was just a tap
+      generateSignal("CALL"); // It was just a tap
     }
   };
 
