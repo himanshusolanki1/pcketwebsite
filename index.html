@@ -1,86 +1,145 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pocket Option Signals</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pocket Option Signal</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background: #0d1117;
+      color: #ffffff;
+      text-align: center;
+    }
+
+    .container {
+      padding: 20px;
+    }
+
+    .logo {
+      width: 100px;
+      margin: 20px auto;
+    }
+
+    h1 {
+      font-size: 22px;
+      font-weight: bold;
+    }
+
+    select, .timer-buttons button {
+      padding: 10px;
+      margin: 10px;
+      font-size: 16px;
+    }
+
+    #getSignal {
+      background: #00c853;
+      color: white;
+      border: none;
+      padding: 15px 30px;
+      font-size: 20px;
+      border-radius: 8px;
+      margin-top: 20px;
+    }
+
+    .loading, .signal-page {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: #0d1117;
+      color: #fff;
+      justify-content: center;
+      align-items: center;
+      font-size: 24px;
+      flex-direction: column;
+    }
+
+    .signal-icon {
+      font-size: 60px;
+      margin-top: 20px;
+    }
+  </style>
 </head>
 <body>
   <div class="container">
-    <div class="logo-container">
-      <img src="images/logo.png" alt="Pocket Option Logo" class="logo">
-    </div>
+    <img src="logo.png" alt="Logo" class="logo" />
+    <h1>Official Signals Powered by Pocket Option</h1>
 
-    <h1>OFFICIAL SIGNALS POWERED BY POCKET OPTION</h1>
-
-    <div class="controls">
-      <select id="pairSelector">
-        <option value="">Select Currency OTC Pair</option>
+    <div>
+      <label for="pairSelect">Select Trade Pair:</label>
+      <select id="pairSelect">
         <option>EUR/USD OTC</option>
         <option>GBP/USD OTC</option>
         <option>USD/JPY OTC</option>
-        <option>AUD/USD OTC</option>
         <option>USD/CHF OTC</option>
-        <option>NZD/USD OTC</option>
+        <option>USD/CAD OTC</option>
         <option>EUR/GBP OTC</option>
         <option>EUR/JPY OTC</option>
-        <option>GBP/JPY OTC</option>
-        <option>CHF/JPY OTC</option>
-        <option>EUR/AUD OTC</option>
         <option>EUR/CHF OTC</option>
-        <option>USD/CAD OTC</option>
-        <option>GBP/CAD OTC</option>
-        <option>NZD/JPY OTC</option>
-        <option>AUD/JPY OTC</option>
-        <option>USD/MXN OTC</option>
-        <option>USD/SGD OTC</option>
-        <option>EUR/NZD OTC</option>
-        <option>EUR/CAD OTC</option>
-        <option>GBP/NZD OTC</option>
-        <option>GBP/CHF OTC</option>
-        <option>CAD/JPY OTC</option>
-        <option>AUD/CHF OTC</option>
-        <option>NZD/CHF OTC</option>
-        <option>USD/NOK OTC</option>
-        <option>USD/SEK OTC</option>
-        <option>USD/DKK OTC</option>
-        <option>EUR/SEK OTC</option>
-        <option>EUR/NOK OTC</option>
-        <option>USD/HKD OTC</option>
-        <option>USD/TRY OTC</option>
-        <option>USD/ZAR OTC</option>
-        <option>EUR/TRY OTC</option>
-        <option>GBP/TRY OTC</option>
-        <option>EUR/PLN OTC</option>
-        <option>USD/PLN OTC</option>
-        <option>USD/CNH OTC</option>
-        <option>CNH/JPY OTC</option>
-        <option>EUR/CNH OTC</option>
-        <option>USD/INR OTC</option>
-        <option>USD/RUB OTC</option>
-        <option>EUR/RUB OTC</option>
-        <option>GBP/INR OTC</option>
-        <option>EUR/INR OTC</option>
-        <option>USD/KRW OTC</option>
-        <option>USD/THB OTC</option>
-        <option>USD/TWD OTC</option>
-        <option>USD/ILS OTC</option>
+        <option>NZD/USD OTC</option>
+        <option>AUD/USD OTC</option>
+        <!-- Add more as needed -->
       </select>
-
-      <div class="timer-options">
-        <button onclick="setTimer('M1')">M1</button>
-        <button onclick="setTimer('S5')">S5</button>
-        <button onclick="setTimer('S15')">S15</button>
-      </div>
-
-      <button id="getSignalBtn">Get Signal</button>
-
-      <div id="loadingMessage">Connecting to Pocket Option Server...</div>
-      <div id="resultDisplay"></div>
     </div>
+
+    <div class="timer-buttons">
+      <button>M1</button>
+      <button>S5</button>
+      <button>S15</button>
+    </div>
+
+    <button id="getSignal">GET SIGNAL</button>
   </div>
 
-  <script src="script.js"></script>
+  <div class="loading" id="loadingScreen">
+    Connecting to Pocket Option server...<br />
+    <span style="margin-top: 10px;">API Connected Successfully ✅</span>
+  </div>
+
+  <div class="signal-page" id="signalScreen">
+    <div id="signalText">BUY</div>
+    <div class="signal-icon" id="signalIcon">📈</div>
+  </div>
+
+  <script>
+    const getSignalBtn = document.getElementById("getSignal");
+    const loadingScreen = document.getElementById("loadingScreen");
+    const signalScreen = document.getElementById("signalScreen");
+    const signalText = document.getElementById("signalText");
+    const signalIcon = document.getElementById("signalIcon");
+
+    let pressTimer;
+
+    getSignalBtn.addEventListener("touchstart", () => {
+      pressTimer = setTimeout(() => showSignal("SELL"), 3000);
+    });
+
+    getSignalBtn.addEventListener("touchend", (e) => {
+      clearTimeout(pressTimer);
+      if (e.timeStamp - e.targetTouches[0].timeStamp < 3000) {
+        showSignal("BUY");
+      }
+    });
+
+    function showSignal(type) {
+      loadingScreen.style.display = "flex";
+      setTimeout(() => {
+        loadingScreen.style.display = "none";
+        signalScreen.style.display = "flex";
+        if (type === "BUY") {
+          signalText.innerText = "BUY";
+          signalIcon.innerText = "📈";
+        } else {
+          signalText.innerText = "SELL";
+          signalIcon.innerText = "📉";
+        }
+      }, 2000);
+    }
+  </script>
 </body>
 </html>
