@@ -2,144 +2,73 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Pocket Option Signal</title>
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: Arial, sans-serif;
-      background: #0d1117;
-      color: #ffffff;
-      text-align: center;
-    }
-
-    .container {
-      padding: 20px;
-    }
-
-    .logo {
-      width: 100px;
-      margin: 20px auto;
-    }
-
-    h1 {
-      font-size: 22px;
-      font-weight: bold;
-    }
-
-    select, .timer-buttons button {
-      padding: 10px;
-      margin: 10px;
-      font-size: 16px;
-    }
-
-    #getSignal {
-      background: #00c853;
-      color: white;
-      border: none;
-      padding: 15px 30px;
-      font-size: 20px;
-      border-radius: 8px;
-      margin-top: 20px;
-    }
-
-    .loading, .signal-page {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: #0d1117;
-      color: #fff;
-      justify-content: center;
-      align-items: center;
-      font-size: 24px;
-      flex-direction: column;
-    }
-
-    .signal-icon {
-      font-size: 60px;
-      margin-top: 20px;
-    }
-  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>POCKET OPTION OFFICIAL</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div class="container">
-    <img src="logo.png" alt="Logo" class="logo" />
-    <h1>Official Signals Powered by Pocket Option</h1>
+    <!-- 3D Logo -->
+    <img src="logo.png" class="logo" alt="Binary God Logo" />
 
-    <div>
-      <label for="pairSelect">Select Trade Pair:</label>
-      <select id="pairSelect">
-        <option>EUR/USD OTC</option>
-        <option>GBP/USD OTC</option>
-        <option>USD/JPY OTC</option>
-        <option>USD/CHF OTC</option>
-        <option>USD/CAD OTC</option>
-        <option>EUR/GBP OTC</option>
-        <option>EUR/JPY OTC</option>
-        <option>EUR/CHF OTC</option>
-        <option>NZD/USD OTC</option>
-        <option>AUD/USD OTC</option>
-        <!-- Add more as needed -->
+    <!-- Title -->
+    <h1>SIGNAL SOFTWARE</h1>
+    <p class="subtitle">POWERED BY POCKET OPTION ™</p>
+
+    <!-- Robot Image -->
+    <img src="robot.png" class="robot" alt="AI Assistant" />
+
+    <!-- Market Selection -->
+    <select id="marketInput">
+      <option value="">Select OTC Market</option>
+      <option value="EUR/USD OTC">EUR/USD OTC</option>
+      <option value="GBP/USD OTC">GBP/USD OTC</option>
+      <option value="AUD/USD OTC">AUD/USD OTC</option>
+      <option value="USD/JPY OTC">USD/JPY OTC</option>
+      <option value="USD/CAD OTC">USD/CAD OTC</option>
+      <option value="NZD/USD OTC">NZD/USD OTC</option>
+      <option value="BTC/USD OTC">BTC/USD OTC</option>
+      <option value="ETH/USD OTC">ETH/USD OTC</option>
+      <option value="LTC/USD OTC">LTC/USD OTC</option>
+      <option value="XRP/USD OTC">XRP/USD OTC</option>
+      <!-- Add more markets if needed -->
+    </select>
+
+    <!-- Continue Button -->
+    <button id="continueBtn">Continue</button>
+
+    <!-- Signal Dashboard -->
+    <div id="dashboard" class="hidden">
+      <p class="market-display" id="marketDisplay"></p>
+
+      <!-- Timer Selection -->
+      <select id="timerInput">
+        <option value="5">5 Seconds</option>
+        <option value="10">10 Seconds</option>
+        <option value="30">30 Seconds</option>
+        <option value="60">1 Minute</option>
       </select>
+
+      <!-- Signal Button -->
+      <button id="signalBtn">GET SIGNAL</button>
     </div>
 
-    <div class="timer-buttons">
-      <button>M1</button>
-      <button>S5</button>
-      <button>S15</button>
+    <!-- Loading Screen -->
+    <div id="loading" class="hidden">
+      <p>🔗 Connecting to POCKET OPTION SERVER...</p>
+      <p>🔐 Authenticating...</p>
+      <p>📊 GETTING SIGNAL...</p>
     </div>
 
-    <button id="getSignal">GET SIGNAL</button>
+    <!-- Final Result -->
+    <div id="result" class="hidden">
+      <p>Signal for <span id="finalMarket"></span>:</p>
+      <h2 id="directionText"></h2>
+      <p>Confidence: <strong>100%</strong></p>
+      <button onclick="reset()">NEW SIGNAL</button>
+    </div>
   </div>
 
-  <div class="loading" id="loadingScreen">
-    Connecting to Pocket Option server...<br />
-    <span style="margin-top: 10px;">API Connected Successfully ✅</span>
-  </div>
-
-  <div class="signal-page" id="signalScreen">
-    <div id="signalText">BUY</div>
-    <div class="signal-icon" id="signalIcon">📈</div>
-  </div>
-
-  <script>
-    const getSignalBtn = document.getElementById("getSignal");
-    const loadingScreen = document.getElementById("loadingScreen");
-    const signalScreen = document.getElementById("signalScreen");
-    const signalText = document.getElementById("signalText");
-    const signalIcon = document.getElementById("signalIcon");
-
-    let pressTimer;
-
-    getSignalBtn.addEventListener("touchstart", () => {
-      pressTimer = setTimeout(() => showSignal("SELL"), 3000);
-    });
-
-    getSignalBtn.addEventListener("touchend", (e) => {
-      clearTimeout(pressTimer);
-      if (e.timeStamp - e.targetTouches[0].timeStamp < 3000) {
-        showSignal("BUY");
-      }
-    });
-
-    function showSignal(type) {
-      loadingScreen.style.display = "flex";
-      setTimeout(() => {
-        loadingScreen.style.display = "none";
-        signalScreen.style.display = "flex";
-        if (type === "BUY") {
-          signalText.innerText = "BUY";
-          signalIcon.innerText = "📈";
-        } else {
-          signalText.innerText = "SELL";
-          signalIcon.innerText = "📉";
-        }
-      }, 2000);
-    }
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
