@@ -1,4 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
+  // Debug: log script loaded
+  console.log('logic.js loaded');
   let pressTimer = null;
 
   const continueBtn = document.getElementById("continueBtn");
