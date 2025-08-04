@@ -2,40 +2,210 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Select Market</title>
-  <link rel="stylesheet" href="style.css" />
+  <title>Pocket Option Signal Software</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, sans-serif;
+    }
+
+    body {
+      background: linear-gradient(160deg, #000000, #0f0f0f);
+      color: white;
+      min-height: 100vh;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 500px;
+      margin: auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-bottom: 50px;
+    }
+
+    .logo {
+      width: 120px;
+      height: 120px;
+      margin-top: 20px;
+      border-radius: 50%;
+      border: 3px solid cyan;
+      object-fit: cover;
+      box-shadow: 0 0 15px cyan;
+      animation: glow 2s ease-in-out infinite alternate;
+    }
+
+    @keyframes glow {
+      from { box-shadow: 0 0 10px cyan; }
+      to { box-shadow: 0 0 20px cyan; }
+    }
+
+    h1 {
+      font-size: 1.6em;
+      background: linear-gradient(to right, #00f2ff, #00ff95);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin: 15px 0 5px 0;
+    }
+
+    .subtitle {
+      font-size: 0.9em;
+      color: #aaa;
+      margin-bottom: 20px;
+    }
+
+    .robot {
+      width: 160px;
+      animation: float 3s ease-in-out infinite;
+      filter: drop-shadow(0 0 6px lime);
+      margin-bottom: 20px;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    input, select, button {
+      width: 100%;
+      padding: 14px;
+      margin: 10px 0;
+      border-radius: 10px;
+      font-size: 1rem;
+      border: none;
+    }
+
+    input, select {
+      background: #111;
+      color: white;
+      border: 1px solid #00f2ff88;
+    }
+
+    button {
+      background: #00f2ff;
+      color: black;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 0 15px #00f2ff;
+    }
+
+    button:hover {
+      background: #00d1e6;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    #directionText {
+      font-size: 2rem;
+      font-weight: bold;
+      margin: 15px 0;
+      text-shadow: 0 0 12px currentColor;
+    }
+
+    .market-display {
+      font-size: 1.1rem;
+      margin: 10px 0;
+    }
+  </style>
 </head>
 <body>
   <div class="container">
-    <div class="background-logo-blur"></div>
-    <img src="logo.png" class="logo-3d" alt="Logo" />
-    <h1 class="gradient-text">SIGNAL SOFTWARE</h1>
-    <p class="subtitle gradient-text">POWERED BY POCKET OPTION ™</p>
-    <img src="robot.png" class="robot" alt="Robot" />
+    <img src="logo.png" class="logo" alt="Logo" />
+    <h1>POCKET OPTION SIGNAL SOFTWARE</h1>
+    <p class="subtitle">POWERED BY SMART TRADING AI™</p>
+    <img src="robot.png" class="robot" alt="Robot AI" />
 
-    <input list="pairList" id="pairInput" placeholder="Enter or Select Market Pair" />
-    <datalist id="pairList">
-      <option value="EUR/USD OTC"></option>
-      <option value="GBP/USD OTC"></option>
-      <option value="AUD/USD OTC"></option>
-      <option value="USD/JPY OTC"></option>
-      <option value="USD/CAD OTC"></option>
-      <option value="NZD/USD OTC"></option>
-      <option value="BTC/USD OTC"></option>
-      <option value="ETH/USD OTC"></option>
-      <option value="LTC/USD OTC"></option>
-      <option value="XRP/USD OTC"></option>
-    </datalist>
-    <button onclick="goToDashboard()">Continue</button>
+    <input type="text" id="marketInput" placeholder="Enter Market & Pair" />
+    <button id="continueBtn">Continue</button>
+
+    <div id="dashboard" class="hidden">
+      <p class="market-display" id="marketDisplay"></p>
+      <select id="timerInput">
+        <option value="30 Seconds">30 Seconds</option>
+        <option value="1 MIN">1 MIN</option>
+        <option value="2 MIN">2 MIN</option>
+        <option value="5 MIN">5 MIN</option>
+      </select>
+      <button id="signalBtn">GET SIGNAL</button>
+    </div>
+
+    <div id="loading" class="hidden">
+      <p>🔗 Connecting to Pocket Option server...</p>
+      <p>🔐 Authenticating...</p>
+      <p>📊 Analyzing Market Data...</p>
+    </div>
+
+    <div id="result" class="hidden">
+      <p>Signal for <span id="finalMarket"></span>:</p>
+      <h2 id="directionText"></h2>
+      <p>Timer: <span id="finalTimer"></span></p>
+      <button onclick="reset()">Next Signal</button>
+    </div>
   </div>
+
   <script>
-    function goToDashboard() {
-      const market = document.getElementById("pairInput").value.trim();
-      if (!market) return alert("Please enter a market pair.");
-      window.location.href = `dashboard.html?market=${encodeURIComponent(market)}`;
+    let pressTimer = null;
+    const signalBtn = document.getElementById('signalBtn');
+
+    document.getElementById('continueBtn').addEventListener('click', () => {
+      const market = document.getElementById('marketInput').value.trim();
+      if (!market) return alert("Please enter a market and pair name.");
+      document.getElementById('marketDisplay').textContent = market;
+      document.getElementById('dashboard').classList.remove('hidden');
+      document.getElementById('continueBtn').classList.add('hidden');
+      document.getElementById('marketInput').classList.add('hidden');
+    });
+
+    function setupPressEvents() {
+      const startPress = () => {
+        pressTimer = setTimeout(() => {
+          generateSignal("DOWN");
+          pressTimer = null;
+        }, 500);
+      };
+
+      const endPress = () => {
+        if (pressTimer) {
+          clearTimeout(pressTimer);
+          generateSignal("UP");
+        }
+      };
+
+      signalBtn.addEventListener("mousedown", startPress);
+      signalBtn.addEventListener("mouseup", endPress);
+      signalBtn.addEventListener("mouseleave", endPress);
+      signalBtn.addEventListener("touchstart", startPress, { passive: true });
+      signalBtn.addEventListener("touchend", endPress);
     }
+
+    function generateSignal(direction) {
+      document.getElementById('dashboard').classList.add('hidden');
+      document.getElementById('loading').classList.remove('hidden');
+
+      setTimeout(() => {
+        document.getElementById('loading').classList.add('hidden');
+        document.getElementById('result').classList.remove('hidden');
+        document.getElementById('directionText').textContent = direction;
+        document.getElementById('directionText').style.color = direction === "UP" ? "lime" : "red";
+        document.getElementById('finalMarket').textContent = document.getElementById('marketDisplay').textContent;
+        document.getElementById('finalTimer').textContent = document.getElementById('timerInput').value;
+      }, 2000);
+    }
+
+    function reset() {
+      document.getElementById('result').classList.add('hidden');
+      document.getElementById('dashboard').classList.remove('hidden');
+    }
+
+    setupPressEvents();
   </script>
 </body>
 </html>
