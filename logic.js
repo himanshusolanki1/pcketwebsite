@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // Debug: log script loaded
   console.log('logic.js loaded');
   let pressTimer = null;
 
@@ -7,27 +6,23 @@ document.addEventListener("DOMContentLoaded", () => {
   const signalBtn = document.getElementById("signalBtn");
   const newSignalBtn = document.getElementById("newSignalBtn");
 
-  // CONTINUE BUTTON
   continueBtn.addEventListener("click", () => {
     const market = document.getElementById("pairInput").value.trim();
     if (!market) return alert("Please enter a market and pair name.");
-
     document.getElementById("marketDisplay").textContent = market;
     document.getElementById("initialPage").classList.add("hidden");
     document.getElementById("dashboard").classList.remove("hidden");
   });
 
-  // Long-press / short-press handlers for GET SIGNAL
   function setupPressEvents() {
     const startPress = () => {
       pressTimer = setTimeout(() => {
         generateSignal("DOWN");
         pressTimer = null;
-      }, 500); // holding >500 ms → DOWN
+      }, 500);
     };
 
     const endPress = () => {
-      // released early → UP
       if (pressTimer) {
         clearTimeout(pressTimer);
         generateSignal("UP");
@@ -45,16 +40,20 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("dashboard").classList.add("hidden");
     document.getElementById("loading").classList.remove("hidden");
 
-    // Fake delay to mimic server round-trip
     setTimeout(() => {
       document.getElementById("loading").classList.add("hidden");
       document.getElementById("result").classList.remove("hidden");
 
       const dirText = document.getElementById("directionText");
       dirText.textContent = direction;
-      dirText.style.color = direction === "UP" ? "lime" : "red";
-      document.getElementById("finalMarket").textContent =
-        document.getElementById("marketDisplay").textContent;
+      dirText.style.color = direction === "UP" ? "black" : "red";
+
+      const market = document.getElementById("marketDisplay").textContent;
+      document.getElementById("finalMarket").textContent = market;
+
+      const timer = document.getElementById("timerInput");
+      const selected = timer.options[timer.selectedIndex].text;
+      document.getElementById("timeDisplay").textContent = selected;
     }, 1800);
   }
 
@@ -64,6 +63,5 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   newSignalBtn.addEventListener("click", resetView);
-
   setupPressEvents();
 });
