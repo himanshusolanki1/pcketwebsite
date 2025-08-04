@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,20 +8,14 @@
 </head>
 <body>
   <div class="container">
-    <!-- Background blur logo -->
     <div class="background-logo-blur"></div>
 
-    <!-- 3D Logo -->
     <img src="logo.png" class="logo-3d" alt="Binary God Logo" onerror="this.style.display='none'" />
-
-    <!-- Title -->
     <h1 class="gradient-text">SIGNAL SOFTWARE</h1>
     <p class="subtitle gradient-text">POWERED BY POCKET OPTION ™</p>
-
-    <!-- Robot Image -->
     <img src="robot.png" class="robot" alt="AI Assistant" onerror="this.style.display='none'" />
 
-    <!-- First Page - Market Selection -->
+    <!-- Initial Market Input -->
     <div id="initialPage">
       <input list="pairList" id="pairInput" placeholder="Enter or Select Market Pair" />
       <datalist id="pairList">
@@ -37,21 +30,18 @@
         <option value="LTC/USD OTC"></option>
         <option value="XRP/USD OTC"></option>
       </datalist>
-
       <button id="continueBtn">Continue</button>
     </div>
 
     <!-- Signal Dashboard -->
     <div id="dashboard" class="hidden">
       <p class="market-display" id="marketDisplay"></p>
-
       <select id="timerInput">
         <option value="5">30 Seconds</option>
         <option value="10">1 Min</option>
         <option value="30">2 Min</option>
         <option value="60">5 Min</option>
       </select>
-
       <button id="signalBtn">GET SIGNAL</button>
     </div>
 
@@ -62,15 +52,26 @@
       <p>📊 GETTING SIGNAL...</p>
     </div>
 
-    <!-- Final Result -->
+    <!-- Final Result Screen -->
     <div id="result" class="hidden">
-      <p>Signal for <span id="finalMarket"></span>:</p>
-      <h2 id="directionText" class="direction-text"></h2>
-      <p>Confidence: <strong>100%</strong></p>
-      <button id="newSignalBtn">NEW SIGNAL</button>
+      <img src="robot.png" class="robot" alt="Robot Icon" />
+      <div class="result-card">
+        <p class="label">ASSET</p>
+        <h2 id="finalMarket" class="asset-text">AUD/CAD</h2>
+
+        <div class="result-box green-box">
+          <p class="label">BUTTON</p>
+          <h2 id="directionText" class="button-text">UP</h2>
+        </div>
+
+        <div class="result-box black-box">
+          <p class="label">TIME</p>
+          <h2 class="time-text" id="timeDisplay">1 MIN</h2>
+        </div>
+      </div>
+      <button id="newSignalBtn" class="white-btn">NEXT SIGNAL</button>
     </div>
   </div>
-
   <script src="logic.js"></script>
 </body>
 </html>
