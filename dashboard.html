@@ -1,0 +1,36 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Signal Dashboard</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <div class="background-logo-blur"></div>
+    <h1 class="gradient-text">GET SIGNAL</h1>
+    <img src="robot.png" class="robot" alt="Robot" />
+
+    <p class="market-display" id="marketDisplay"></p>
+    <select id="timerInput">
+      <option value="30 Seconds">30 Seconds</option>
+      <option value="1 MIN">1 MIN</option>
+      <option value="2 MIN">2 MIN</option>
+      <option value="5 MIN">5 MIN</option>
+    </select>
+    <button onclick="getSignal()">GET SIGNAL</button>
+  </div>
+  <script>
+    const market = new URLSearchParams(window.location.search).get("market");
+    document.getElementById("marketDisplay").textContent = market || "No Market Selected";
+
+    function getSignal() {
+      const time = document.getElementById("timerInput").value;
+      const direction = Math.random() < 0.5 ? "UP" : "DOWN";
+      window.location.href = `result.html?market=${encodeURIComponent(market)}&time=${encodeURIComponent(time)}&direction=${direction}`;
+    }
+  </script>
+</body>
+</html>

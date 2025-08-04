@@ -1,0 +1,41 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Select Market</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <div class="background-logo-blur"></div>
+    <img src="logo.png" class="logo-3d" alt="Logo" />
+    <h1 class="gradient-text">SIGNAL SOFTWARE</h1>
+    <p class="subtitle gradient-text">POWERED BY POCKET OPTION ™</p>
+    <img src="robot.png" class="robot" alt="Robot" />
+
+    <input list="pairList" id="pairInput" placeholder="Enter or Select Market Pair" />
+    <datalist id="pairList">
+      <option value="EUR/USD OTC"></option>
+      <option value="GBP/USD OTC"></option>
+      <option value="AUD/USD OTC"></option>
+      <option value="USD/JPY OTC"></option>
+      <option value="USD/CAD OTC"></option>
+      <option value="NZD/USD OTC"></option>
+      <option value="BTC/USD OTC"></option>
+      <option value="ETH/USD OTC"></option>
+      <option value="LTC/USD OTC"></option>
+      <option value="XRP/USD OTC"></option>
+    </datalist>
+    <button onclick="goToDashboard()">Continue</button>
+  </div>
+  <script>
+    function goToDashboard() {
+      const market = document.getElementById("pairInput").value.trim();
+      if (!market) return alert("Please enter a market pair.");
+      window.location.href = `dashboard.html?market=${encodeURIComponent(market)}`;
+    }
+  </script>
+</body>
+</html>

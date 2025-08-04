@@ -1,0 +1,37 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Signal Result</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <div class="background-logo-blur"></div>
+    <img src="robot.png" class="robot" alt="Robot" />
+    <div class="result-card">
+      <p class="label">ASSET</p>
+      <h2 id="finalMarket" class="asset-text"></h2>
+
+      <div class="result-box green-box">
+        <p class="label">BUTTON</p>
+        <h2 id="directionText" class="button-text"></h2>
+      </div>
+
+      <div class="result-box black-box">
+        <p class="label">TIME</p>
+        <h2 id="timeDisplay" class="time-text"></h2>
+      </div>
+    </div>
+    <button class="white-btn" onclick="window.location.href='index.html'">NEXT SIGNAL</button>
+  </div>
+  <script>
+    const query = new URLSearchParams(window.location.search);
+    document.getElementById("finalMarket").textContent = query.get("market");
+    document.getElementById("directionText").textContent = query.get("direction");
+    document.getElementById("timeDisplay").textContent = query.get("time");
+  </script>
+</body>
+</html>
