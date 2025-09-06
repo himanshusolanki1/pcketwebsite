@@ -4,7 +4,207 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Pocket Option Signal Software</title>
-  <link rel="stylesheet" href="style.css"> <!-- your CSS file -->
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background: #000;
+      color: white;
+      text-align: center;
+      padding: 20px;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Background video */
+    #bgVideo {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -2;
+    }
+
+    /* Dark overlay */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.55);
+      z-index: -1;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: auto;
+      padding: 20px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .background-logo-blur {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      width: 400px;
+      height: 400px;
+      background: url("logo.png") no-repeat center;
+      background-size: contain;
+      transform: translate(-50%, -50%);
+      filter: blur(80px) brightness(0.8);
+      opacity: 0.2;
+      animation: pulse 4s infinite;
+      z-index: 0;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.2; }
+      50% { transform: translate(-50%, -50%) scale(1.1); opacity: 0.3; }
+    }
+
+    .logo {
+      width: 150px;
+      filter: drop-shadow(0 0 10px cyan);
+      margin-bottom: 10px;
+      animation: glowLogo 3s ease-in-out infinite alternate;
+      border-radius: 50%;
+      border: 3px solid cyan;
+      object-fit: cover;
+    }
+
+    @keyframes glowLogo {
+      from { filter: drop-shadow(0 0 8px cyan); }
+      to { filter: drop-shadow(0 0 20px cyan); }
+    }
+
+    .robot {
+      width: 100px;
+      margin: 20px auto;
+      display: block;
+      filter: drop-shadow(0 0 6px lime);
+      animation: float 3s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    h1 {
+      font-size: 1.8rem;
+      background: linear-gradient(to right, #00f2ff, #00ff95);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin: 15px 0 5px 0;
+    }
+
+    .subtitle {
+      font-size: 1.2rem;
+      margin-bottom: 20px;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 12px;
+      margin: 12px 0;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      outline: none;
+    }
+
+    button {
+      background-color: #00f2ff;
+      color: black;
+      border: none;
+      border-radius: 10px;
+      padding: 12px 20px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 10px;
+      box-shadow: 0 0 15px #00f2ff;
+      transition: background-color 0.3s, box-shadow 0.3s;
+    }
+
+    button:hover {
+      background-color: #00d1e6;
+      box-shadow: 0 0 25px #00f2ff;
+    }
+
+    .market-display {
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+
+    #loading p {
+      font-size: 1.1rem;
+      margin-bottom: 10px;
+    }
+
+    #directionText {
+      font-size: 2.2rem;
+      font-weight: bold;
+      text-shadow: 0 0 10px;
+      animation: flash 1.2s ease-in-out infinite;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    @keyframes flash {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.6; }
+    }
+
+    /* Mobile responsive */
+    @media (max-width: 500px) {
+      .logo {
+        width: 120px;
+      }
+
+      .robot {
+        width: 80px;
+      }
+
+      h1 {
+        font-size: 1.5rem;
+      }
+
+      button {
+        font-size: 1rem;
+      }
+
+      input, select {
+        font-size: 1rem;
+      }
+
+      #directionText {
+        font-size: 1.8rem;
+      }
+
+      /* Hide video on mobile and fallback to image */
+      #bgVideo {
+        display: none;
+      }
+      body {
+        background: url("background.jpg") no-repeat center center fixed;
+        background-size: cover;
+      }
+    }
+  </style>
 </head>
 <body>
   <!-- Background Video -->
