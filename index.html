@@ -13,29 +13,27 @@
     }
 
     body {
-      background: #000;
       color: white;
       text-align: center;
       padding: 20px;
       overflow-x: hidden;
       position: relative;
+      background: #000;
     }
 
     /* Background video */
     #bgVideo {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  z-index: -2;
-
-  /* Prevent any interaction */
-  pointer-events: none;
-  user-select: none;
-}
-
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -2;
+      pointer-events: none;
+      user-select: none;
+      filter: brightness(0.7); /* optional dark effect */
+    }
 
     /* Dark overlay */
     body::before {
@@ -55,26 +53,6 @@
       padding: 20px;
       position: relative;
       z-index: 1;
-    }
-
-    .background-logo-blur {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      width: 400px;
-      height: 400px;
-      background: url("logo.png") no-repeat center;
-      background-size: contain;
-      transform: translate(-50%, -50%);
-      filter: blur(80px) brightness(0.8);
-      opacity: 0.2;
-      animation: pulse 4s infinite;
-      z-index: 0;
-    }
-
-    @keyframes pulse {
-      0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.2; }
-      50% { transform: translate(-50%, -50%) scale(1.1); opacity: 0.3; }
     }
 
     .logo {
@@ -199,29 +177,17 @@
       #directionText {
         font-size: 1.8rem;
       }
-
-      
-      body {
-        background: url("background.jpg") no-repeat center center fixed;
-        background-size: cover;
-      }
     }
   </style>
 </head>
 <body>
   <!-- Background Video -->
-  <!-- Background Video -->
-<video autoplay muted loop playsinline id="bgVideo" 
-       preload="auto" 
-       poster="background.jpg"
-       controlslist="nodownload nofullscreen noremoteplayback" 
-       disablePictureInPicture>
-  <source src="Background.mp4" type="video/mp4">
-  Your browser does not support HTML5 video.
-</video>
-
-
-
+  <video autoplay muted loop playsinline id="bgVideo" preload="auto"
+         controlslist="nodownload nofullscreen noremoteplayback"
+         disablePictureInPicture>
+    <source src="Background.mp4" type="video/mp4">
+    Your browser does not support HTML5 video.
+  </video>
 
   <div class="container">
     <img src="logo.png" class="logo" alt="Logo" />
