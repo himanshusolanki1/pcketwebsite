@@ -30,6 +30,7 @@
       height: 100%;
       object-fit: cover;
       z-index: -2;
+      pointer-events: none; /* disables taps */
     }
 
     /* Dark overlay */
@@ -205,10 +206,13 @@
 </head>
 <body>
   <!-- Background Video -->
-  <video autoplay muted loop playsinline id="bgVideo">
-    <source src="Background.mp4" type="video/mp4">
-    Your browser does not support HTML5 video.
-  </video>
+  <video autoplay muted loop playsinline id="bgVideo" 
+       disablepictureinpicture 
+       controlslist="nodownload nofullscreen noremoteplayback">
+  <source src="Background.mp4" type="video/mp4">
+  Your browser does not support HTML5 video.
+</video>
+
 
   <div class="container">
     <img src="logo.png" class="logo" alt="Logo" />
