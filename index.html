@@ -1,122 +1,18 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Pocket Option Signal Software</title>
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: 'Segoe UI', Tahoma, sans-serif;
-    }
-
-    body {
-      background: linear-gradient(160deg, #000000, #0f0f0f);
-      color: white;
-      min-height: 100vh;
-      text-align: center;
-      padding: 20px;
-    }
-
-    .container {
-      max-width: 500px;
-      margin: auto;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding-bottom: 50px;
-    }
-
-    .logo {
-      width: 120px;
-      height: 120px;
-      margin-top: 20px;
-      border-radius: 50%;
-      border: 3px solid cyan;
-      object-fit: cover;
-      box-shadow: 0 0 15px cyan;
-      animation: glow 2s ease-in-out infinite alternate;
-    }
-
-    @keyframes glow {
-      from { box-shadow: 0 0 10px cyan; }
-      to { box-shadow: 0 0 20px cyan; }
-    }
-
-    h1 {
-      font-size: 1.6em;
-      background: linear-gradient(to right, #00f2ff, #00ff95);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      margin: 15px 0 5px 0;
-    }
-
-    .subtitle {
-      font-size: 0.9em;
-      color: #aaa;
-      margin-bottom: 20px;
-    }
-
-    .robot {
-      width: 160px;
-      animation: float 3s ease-in-out infinite;
-      filter: drop-shadow(0 0 6px lime);
-      margin-bottom: 20px;
-    }
-
-    @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
-    }
-
-    input, select, button {
-      width: 100%;
-      padding: 14px;
-      margin: 10px 0;
-      border-radius: 10px;
-      font-size: 1rem;
-      border: none;
-    }
-
-    input, select {
-      background: #111;
-      color: white;
-      border: 1px solid #00f2ff88;
-    }
-
-    button {
-      background: #00f2ff;
-      color: black;
-      font-weight: bold;
-      cursor: pointer;
-      box-shadow: 0 0 15px #00f2ff;
-    }
-
-    button:hover {
-      background: #00d1e6;
-    }
-
-    .hidden {
-      display: none;
-    }
-
-    #directionText {
-      font-size: 2rem;
-      font-weight: bold;
-      margin: 15px 0;
-      text-shadow: 0 0 12px currentColor;
-    }
-
-    .market-display {
-      font-size: 1.1rem;
-      margin: 10px 0;
-    }
-  </style>
+  <link rel="stylesheet" href="style.css"> <!-- your CSS file -->
 </head>
 <body>
+  <!-- Background Video -->
+  <video autoplay muted loop playsinline id="bgVideo">
+    <source src="background.mp4" type="video/mp4">
+    Your browser does not support HTML5 video.
+  </video>
+
   <div class="container">
     <img src="logo.png" class="logo" alt="Logo" />
     <h1>POCKET OPTION SIGNAL SOFTWARE</h1>
